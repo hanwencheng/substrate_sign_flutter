@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - substrate_sign_flutter (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - substrate_sign_flutter (from `.symlinks/plugins/substrate_sign_flutter/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  substrate_sign_flutter:
+    :path: ".symlinks/plugins/substrate_sign_flutter/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  substrate_sign_flutter: 4122d6796e1733daec2a0fb696596f288ec8e35e
+
+PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+
+COCOAPODS: 1.9.1
