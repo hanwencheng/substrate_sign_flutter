@@ -48,7 +48,19 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: <Widget>[
+              Text('Running on: $_platformVersion\n'),
+              FlatButton(
+                child: const Text('Press'),
+                onPressed: () {
+                  String response = randomPhrase(12);
+                  print("response is $response");
+
+                },
+              ),
+            ],
+          )
         ),
       ),
     );

@@ -16,6 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: ^1.14.2
 
   substrate_sign_flutter:
     path: ../

@@ -33,6 +33,9 @@ typedef RustGreetingFuncNative = Pointer<Utf8> Function(Pointer<Utf8>);
 typedef FreeStringFunc = void Function(Pointer<Utf8>);
 typedef FreeStringFuncNative = Void Function(Pointer<Utf8>);
 
+typedef RustRandomPhraseFunction = Pointer<Utf8> Function(int);
+typedef RustRandomPhraseFunctionNative = Pointer<Utf8> Function(Uint32);
+
 ///////////////////////////////////////////////////////////////////////////////
 // Load the library
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,6 +54,10 @@ final RustGreetingFunc rustGreeting = nativeSubstrateSignLib
 
 final FreeStringFunc freeCString = nativeSubstrateSignLib
     .lookup<NativeFunction<FreeStringFuncNative>>("rust_cstr_free")
+    .asFunction();
+
+final RustRandomPhraseFunction rustRandomPhrase = nativeSubstrateSignLib
+    .lookup<NativeFunction<RustRandomPhraseFunctionNative>>("random_phrase")
     .asFunction();
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,5 +86,14 @@ String nativeGreeting(String name) {
   freeCString(resultPointer);
 
   return greetingStr;
+}
+
+String randomPhrase(int digits){
+  if (nativeSubstrateSignLib == null)
+    return "ERROR: The library is not initialized 🙁";
+
+  print("  ${nativeSubstrateSignLib.toString()}"); // Instance info
+  final phrasePointer = rustRandomPhrase(digits);
+  return Utf8.fromUtf8(phrasePointer);
 }
 

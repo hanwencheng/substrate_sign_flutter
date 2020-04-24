@@ -20,4 +20,11 @@ void main() {
   test('getPlatformVersion', () async {
 //    expect(await SubstrateSignFlutter.platformVersion, '42');
   });
+
+  test('get random phrase',  () async {
+    await new Future.delayed(const Duration(seconds : 5));
+    String response = randomPhrase(12);
+
+    expect(response.split("").length, 12);
+  });
 }
