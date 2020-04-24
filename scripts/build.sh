@@ -48,7 +48,7 @@ CC_x86_64_linux_android="${ANDROID_PREBUILD_BIN}/x86_64-linux-android${API_LEVEL
 for i in "${!ANDROID_ARCHS[@]}";
   do
     mkdir -p "../android/src/main/${ANDROID_FOLDER[$i]}"
-    cp "./target/${ANDROID_ARCHS[$i]}/release/lib${LIB_NAME}.so" "../android/src/main/${ANDROID_FOLDER[$i]}/lib${LIB_NAME}.so"
+    cp "./target/${ANDROID_ARCHS[$i]}/release/lib${LIB_NAME}.so" "../android/src/main/jniLibs/${ANDROID_FOLDER[$i]}/lib${LIB_NAME}.so"
 done
 
 
