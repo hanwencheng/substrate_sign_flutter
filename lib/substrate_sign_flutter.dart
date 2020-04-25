@@ -1,27 +1,7 @@
-//import 'dart:async';
-//
-//import 'package:flutter/services.dart';
-//
-//class SubstrateSignFlutter {
-//  static const MethodChannel _channel =
-//      const MethodChannel('substrate_sign_flutter');
-//
-//  static Future<String> get platformVersion async {
-//    final String version = await _channel.invokeMethod('getPlatformVersion');
-//    return version;
-//  }
-//}
-
 import 'dart:ffi';
 import 'dart:io';
+
 import 'package:ffi/ffi.dart';
-
-///////////////////////////////////////////////////////////////////////////////
-// C bindings
-///////////////////////////////////////////////////////////////////////////////
-
-// void rust_cstr_free(char *s);
-// char *rust_greeting(const char *to);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Typedef's
@@ -37,13 +17,16 @@ typedef RustSign = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>);
 typedef RustSignNative = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>);
 
 typedef RustSubstrateAddress = Pointer<Utf8> Function(Pointer<Utf8>, int);
-typedef RustSubstrateAddressNative = Pointer<Utf8> Function(Pointer<Utf8>, Uint32);
+typedef RustSubstrateAddressNative = Pointer<Utf8> Function(
+    Pointer<Utf8>, Uint32);
 
 typedef RustEncrypt = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>);
-typedef RustEncryptNative = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>);
+typedef RustEncryptNative = Pointer<Utf8> Function(
+    Pointer<Utf8>, Pointer<Utf8>);
 
 typedef RustDecrypt = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>);
-typedef RustDecryptNative = Pointer<Utf8> Function(Pointer<Utf8>, Pointer<Utf8>);
+typedef RustDecryptNative = Pointer<Utf8> Function(
+    Pointer<Utf8>, Pointer<Utf8>);
 
 typedef RustDecryptWithRef = int Function(Pointer<Utf8>, Pointer<Utf8>);
 typedef RustDecryptWithRefNative = Int64 Function(Pointer<Utf8>, Pointer<Utf8>);
@@ -51,11 +34,15 @@ typedef RustDecryptWithRefNative = Int64 Function(Pointer<Utf8>, Pointer<Utf8>);
 typedef RustDestroyDataRef = void Function(int);
 typedef RustDestroyDataRefNative = Void Function(Int64);
 
-typedef RustSignWithRef = Pointer<Utf8> Function(int, Pointer<Utf8>, Pointer<Utf8>);
-typedef RustSignWithRefNative = Pointer<Utf8> Function(Int64, Pointer<Utf8>, Pointer<Utf8>);
+typedef RustSignWithRef = Pointer<Utf8> Function(
+    int, Pointer<Utf8>, Pointer<Utf8>);
+typedef RustSignWithRefNative = Pointer<Utf8> Function(
+    Int64, Pointer<Utf8>, Pointer<Utf8>);
 
-typedef RustSubstrateAddressWithRef = Pointer<Utf8> Function(int, Pointer<Utf8>, int);
-typedef RustSubstrateAddressWithRefNative = Pointer<Utf8> Function(Int64, Pointer<Utf8>, Uint32);
+typedef RustSubstrateAddressWithRef = Pointer<Utf8> Function(
+    int, Pointer<Utf8>, int);
+typedef RustSubstrateAddressWithRefNative = Pointer<Utf8> Function(
+    Int64, Pointer<Utf8>, Uint32);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Load the library
@@ -105,15 +92,17 @@ final RustSignWithRef rustSignWithRef = nativeSubstrateSignLib
     .lookup<NativeFunction<RustSignWithRefNative>>("substrate_sign_with_ref")
     .asFunction();
 
-final RustSubstrateAddressWithRef rustSubstrateAddressWithRef = nativeSubstrateSignLib
-    .lookup<NativeFunction<RustSubstrateAddressWithRefNative>>("substrate_address_with_ref")
-    .asFunction();
+final RustSubstrateAddressWithRef rustSubstrateAddressWithRef =
+    nativeSubstrateSignLib
+        .lookup<NativeFunction<RustSubstrateAddressWithRefNative>>(
+            "substrate_address_with_ref")
+        .asFunction();
 
 ///////////////////////////////////////////////////////////////////////////////
 // HANDLERS
 ///////////////////////////////////////////////////////////////////////////////
 
-String randomPhrase(int digits){
+String randomPhrase(int digits) {
   if (nativeSubstrateSignLib == null)
     return "ERROR: The library is not initialized 🙁";
 
@@ -123,7 +112,7 @@ String randomPhrase(int digits){
 }
 
 String substrateSign(String suri, String message) {
-  final utf8Suri =  Utf8.toUtf8("$suri//path///");
+  final utf8Suri = Utf8.toUtf8("$suri//path///");
   final utf8Message = Utf8.toUtf8(message);
   final utf8SignedMessage = rustSign(utf8Suri, utf8Message);
   final signedMessage = Utf8.fromUtf8(utf8SignedMessage);
@@ -131,7 +120,7 @@ String substrateSign(String suri, String message) {
   return signedMessage;
 }
 
-String substrateAddress (String seed, int prefix) {
+String substrateAddress(String seed, int prefix) {
   final utf8Seed = Utf8.toUtf8(seed);
   final utf8Address = rustSubstrateAddress(utf8Seed, prefix);
   final address = Utf8.fromUtf8(utf8Address);
@@ -164,27 +153,27 @@ int decryptDataWithRef(String data, String password) {
   return ref;
 }
 
-void destroyDataRef(int ref){
+void destroyDataRef(int ref) {
   rustDestroyDataRef(ref);
 }
 
 String substrateSignWithRef(int seedRef, String suriSuffix, String message) {
-  if(seedRef == 0) return "seed ref not valid";
-  final utf8SuriSuffix =  Utf8.toUtf8("$suriSuffix//path///");
+  if (seedRef == 0) return "seed ref not valid";
+  final utf8SuriSuffix = Utf8.toUtf8("$suriSuffix//path///");
   final utf8Message = Utf8.toUtf8(message);
-  final utf8SignedMessage = rustSignWithRef(seedRef, utf8SuriSuffix, utf8Message);
+  final utf8SignedMessage =
+      rustSignWithRef(seedRef, utf8SuriSuffix, utf8Message);
   final signedMessage = Utf8.fromUtf8(utf8SignedMessage);
   freeCString(utf8SignedMessage);
   return signedMessage;
 }
 
 String substrateAddressWithRef(int seedRef, String suriSuffix, int prefix) {
-  if(seedRef == 0) return "seed ref not valid";
+  if (seedRef == 0) return "seed ref not valid";
   final utf8SuriSuffix = Utf8.toUtf8(suriSuffix);
-  final utf8Address = rustSubstrateAddressWithRef(seedRef, utf8SuriSuffix, prefix);
+  final utf8Address =
+      rustSubstrateAddressWithRef(seedRef, utf8SuriSuffix, prefix);
   final address = Utf8.fromUtf8(utf8Address);
   freeCString(utf8Address);
   return address;
 }
-
-

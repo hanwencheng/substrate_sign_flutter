@@ -1,11 +1,12 @@
-use codec::{Encode, Decode};
-use lazy_static::lazy_static;
+use base58::ToBase58;
+use bip39::{Language, Mnemonic};
+use codec::{Decode, Encode};
 use regex::Regex;
 use schnorrkel::{ExpansionMode, SecretKey, Signature};
 use schnorrkel::derive::{ChainCode, Derivation};
 use substrate_bip39::mini_secret_from_entropy;
-use bip39::{Mnemonic, Language};
-use base58::ToBase58;
+
+use lazy_static::lazy_static;
 
 pub struct KeyPair(schnorrkel::Keypair);
 

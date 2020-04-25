@@ -1,4 +1,4 @@
-# substrate_sign_flutter
+# Substrate Sign Flutter Plugin
 
 Flutter plugin for using Substrate signing functions offline.
 
@@ -30,7 +30,7 @@ String randomPhrase(int digits)
 
 `substrateAddress`: Generate substrate address with provided suri(Secret URI). 
 ```dart
-String substrateAddress (String seed, int prefix) 
+String substrateAddress(String seed, int prefix) 
 ```
 
 `substrateSign`: Sign hex string with the provided seed
