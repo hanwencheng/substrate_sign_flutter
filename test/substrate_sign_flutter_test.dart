@@ -7,24 +7,13 @@ void main() {
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
-    });
-  });
-
-  tearDown(() {
-    channel.setMockMethodCallHandler(null);
-  });
-
   test('getPlatformVersion', () async {
 //    expect(await SubstrateSignFlutter.platformVersion, '42');
   });
 
-  test('get random phrase',  () async {
-    await new Future.delayed(const Duration(seconds : 5));
-    String response = randomPhrase(12);
-
-    expect(response.split("").length, 12);
+  test('generate random phrase', () {
+    String input = "some text";
+    String output = randomPhrase(12);
+    expect(input, output);
   });
 }
