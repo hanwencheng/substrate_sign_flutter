@@ -169,6 +169,7 @@ void destroyDataRef(int ref){
 }
 
 String substrateSignWithRef(int seedRef, String suriSuffix, String message) {
+  if(seedRef == 0) return "seed ref not valid";
   final utf8SuriSuffix =  Utf8.toUtf8("$suriSuffix//path///");
   final utf8Message = Utf8.toUtf8(message);
   final utf8SignedMessage = rustSignWithRef(seedRef, utf8SuriSuffix, utf8Message);
@@ -178,6 +179,7 @@ String substrateSignWithRef(int seedRef, String suriSuffix, String message) {
 }
 
 String substrateAddressWithRef(int seedRef, String suriSuffix, int prefix) {
+  if(seedRef == 0) return "seed ref not valid";
   final utf8SuriSuffix = Utf8.toUtf8(suriSuffix);
   final utf8Address = rustSubstrateAddressWithRef(seedRef, utf8SuriSuffix, prefix);
   final address = Utf8.fromUtf8(utf8Address);
