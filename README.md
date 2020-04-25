@@ -10,7 +10,17 @@ More details about using rust in flutter please check this great [article](https
 
 ## Usage
 
-SURI: Secret URI is with format of `"$seedPhrase//$derivationPath///derivationPassword"`, for example `SURI bottom drive obey lake curtain smoke basket hold race lonely fit walk//kusama/1///000000`.
+#### Introduce SURI
+
+SURI refers to Secret URI, it is with format of:
+
+`"$seedPhrase//$derivationPath///derivationPassword"`
+
+for example:
+
+ `SURI bottom drive obey lake curtain smoke basket hold race lonely fit walk//kusama/1///000000`.
+ 
+#### Functions
 
 `randomPhrase`: Generate random seed phrase
 
@@ -61,15 +71,15 @@ NOTICE: here `suriSuffix` refer to the combination of derivation path and deriva
 ## Develop
 To customize the library or add more functions. First run
 ```shell script
-./script/init.sh
+./scripts/init.sh
 ```
-to setup required toolchains
+to setup required toolchains, you will also need Android NDK for generating android native code, download it [here](https://developer.android.com/ndk/downloads) and pointer environment variable `NDK_HOME` to it.
 
-After building, run 
+After customizing the rust code, run 
 ```shell script
-./script/build.sh
+./scripts/build.sh
 ```
-to generate the clue code and binaries for Rust, Flutter, iOS and Android.
+to generate the glue code and binaries for Rust, Flutter, iOS and Android.
 
 ## Test
 
