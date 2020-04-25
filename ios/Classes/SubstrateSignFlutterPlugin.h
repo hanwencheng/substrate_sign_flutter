@@ -6,16 +6,22 @@
 
 char *decrypt_data(const char *data, const char *password);
 
+int64_t decrypt_data_with_ref(const char *data, const char *password);
+
+void destroy_data_ref(int64_t data_ref);
+
 char *encrypt_data(const char *data, const char *password);
 
 char *random_phrase(uint32_t words_number);
 
 void rust_cstr_free(char *s);
 
-char *rust_greeting(const char *to);
-
 bool schnorrkel_verify(const char *suri, const char *message, const char *signature);
 
 char *substrate_address(const char *suri, uint8_t prefix);
 
+char *substrate_address_with_ref(int64_t seed_ref, const char *suri_suffix, uint8_t prefix);
+
 char *substrate_sign(const char *suri, const char *text);
+
+char *substrate_sign_with_ref(int64_t seed_ref, const char *suri_suffix, const char *text);

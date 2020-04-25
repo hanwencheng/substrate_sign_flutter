@@ -14,6 +14,6 @@ public class SwiftSubstrateSignFlutterPlugin: NSObject, FlutterPlugin {
 
     public func dummyMethodToEnforceBundling() {
       // dummy calls to prevent tree shaking
-      rust_greeting("");
+      random_phrase(12);
     }
 }
