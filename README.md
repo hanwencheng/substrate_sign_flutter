@@ -14,7 +14,7 @@ More details about using rust in flutter please check this great [article](https
 
 SURI refers to Secret URI, it is with format of:
 
-`"$seedPhrase//$derivationPath///derivationPassword"`
+`"$seedPhrase//$derivationPath///$derivationPassword"`
 
 for example:
 
