@@ -112,7 +112,7 @@ String randomPhrase(int digits) {
 }
 
 String substrateSign(String suri, String message) {
-  final utf8Suri = Utf8.toUtf8("$suri//path///");
+  final utf8Suri = Utf8.toUtf8(suri);
   final utf8Message = Utf8.toUtf8(message);
   final utf8SignedMessage = rustSign(utf8Suri, utf8Message);
   final signedMessage = Utf8.fromUtf8(utf8SignedMessage);
@@ -159,7 +159,7 @@ void destroyDataRef(int ref) {
 
 String substrateSignWithRef(int seedRef, String suriSuffix, String message) {
   if (seedRef == 0) return "seed ref not valid";
-  final utf8SuriSuffix = Utf8.toUtf8("$suriSuffix//path///");
+  final utf8SuriSuffix = Utf8.toUtf8(suriSuffix);
   final utf8Message = Utf8.toUtf8(message);
   final utf8SignedMessage =
       rustSignWithRef(seedRef, utf8SuriSuffix, utf8Message);

@@ -1,7 +1,6 @@
 name: substrate_sign_flutter
-description: Substrate signing bindings in flutter
-version: 0.0.1
-author: Hanwen Cheng<heawen.cheng@gmail.com>
+description: Substrate signing bindings in flutter, which could be used to sign messages locally or to sign extrinsics in order to interact with API.
+version: 0.1.1
 homepage: https://github.com/hanwencheng/substrate_sign_flutter
 
 environment:
